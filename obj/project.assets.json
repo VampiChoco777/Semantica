@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marco\\Desktop\\Semantica\\Semantica.csproj",
+      "projectUniqueName": "C:\\Users\\marco\\Desktop\\Semantica_2\\Semantica\\Semantica.csproj",
       "projectName": "Semantica",
-      "projectPath": "C:\\Users\\marco\\Desktop\\Semantica\\Semantica.csproj",
+      "projectPath": "C:\\Users\\marco\\Desktop\\Semantica_2\\Semantica\\Semantica.csproj",
       "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marco\\Desktop\\Semantica\\obj\\",
+      "outputPath": "C:\\Users\\marco\\Desktop\\Semantica_2\\Semantica\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config"

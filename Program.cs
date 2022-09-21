@@ -10,7 +10,7 @@ namespace Semantica
             try
             {
                 Lenguaje a = new Lenguaje();
-
+                
                 a.Programa();
 
 
