@@ -1,17 +1,17 @@
 Archivo: prueba.cpp
-19/09/2022 09:57:07 a. m.
+21/09/2022 09:31:54 a. m.
 
 pi = 3.141592653589793 = 3.1415927
 
 d = 4 = 4
 d 
-area = pi radio radio * * = 50.265484
+area = pi radio radio * * = 28.274334
 area 
 d = 10 = 10
 d 20  
 Variables: 
-area Float 50.265484
-radio Float 4
+area Float 28.274334
+radio Float 3
 pi Float 3.1415927
 resultado Float 0
 a Int 0
