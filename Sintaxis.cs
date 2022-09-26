@@ -1,3 +1,4 @@
+//Marco Adrián Domínguez Jiménez
 using System;
 
 namespace Semantica

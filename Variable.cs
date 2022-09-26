@@ -1,3 +1,4 @@
+//Marco Adrián Domínguez Jiménez
 namespace Semantica
 {
     public class Variable

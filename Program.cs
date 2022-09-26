@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Marco Adrián Domínguez Jiménez
+using System;
 using System.IO;
 
 namespace Semantica
