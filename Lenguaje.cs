@@ -7,6 +7,8 @@ using System.Collections.Generic;
 //Requerimiento 3.- Programar un metodo de connversion de un valor a un tipo de dato
 //                  Funcion Convierte : private float Convert (float valor, string tipoDato)
 //                  Deberan de usar el residuo de la division %255 entre %65535
+//Requerimiento 4.- Evaluar nuevamente la condicion del if, else, while, for y do while; Con respecto al parametro que reciben
+//Requerimiento 5.- Levantar una excepcion en el scanf cuando la captura no sea un numero
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -144,6 +146,14 @@ namespace Semantica
                 Lista_identificadores(tipo);
             }
         }
+        private void Main()
+        {
+            match("void");
+            match("main");
+            match("(");
+            match(")");
+            BloqueInstrucciones(true);
+        }
         //Bloque de instrucciones -> {listaIntrucciones?}
         private void BloqueInstrucciones(bool evaluacion)
         {
@@ -275,11 +285,11 @@ namespace Semantica
         {
             match("while");
             match("(");
-            Condicion();
+            bool validarWhile=Condicion();
             match(")");
             if (getContenido() == "{") 
             {
-                BloqueInstrucciones(evaluacion);
+                BloqueInstrucciones(validarWhile);
             }
             else
             {
@@ -301,6 +311,8 @@ namespace Semantica
             } 
             match("while");
             match("(");
+            //Requerimiento 4
+            bool validarDo = Condicion();
             Condicion();
             match(")");
             match(";");
@@ -311,7 +323,8 @@ namespace Semantica
             match("for");
             match("(");
             Asignacion(evaluacion);
-            Condicion();
+            //Requerimiento 4
+            bool validarFor = Condicion();
             match(";");
             Incremento(evaluacion);
             match(")");
@@ -428,6 +441,7 @@ namespace Semantica
         {
             match("if");
             match("(");
+            //Requerimiento 4
             bool validarIf = Condicion();
             //Console.WriteLine(Condicion());
             match(")");
@@ -442,6 +456,7 @@ namespace Semantica
             if (getContenido() == "else")
             {
                 match("else");
+                //Requerimiento 4
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(validarIf);
@@ -500,9 +515,16 @@ namespace Semantica
             match("&");
             if(existeVariable(getContenido()))
             {
-                string val = "" + Console.ReadLine();
-                ModificaValor(getContenido(),float.Parse(val));
+                string nombre = getContenido();
+                //ModificaValor(getContenido(),float.Parse(val));
                 match(Tipos.Identificador);  
+                if(evaluacion)
+                {
+                    string val = "" + Console.ReadLine();
+                    //Requerimiento 5, levanta una excepcion si es que no es un numero
+                    float valorFloat = float.Parse(val);
+                    ModificaValor(nombre, valorFloat);
+                }
                 match(")");
                 match(";");
             }
@@ -514,15 +536,6 @@ namespace Semantica
         }
 
         //Main      -> void main() Bloque de instrucciones
-        private void Main()
-        {
-            match("void");
-            match("main");
-            match("(");
-            match(")");
-            BloqueInstrucciones(true);
-        }
-
         //Expresion -> Termino MasTermino
         private void Expresion()
         {
