@@ -9,6 +9,7 @@ using System.Collections.Generic;
 //                  Deberan de usar el residuo de la division %255 entre %65535
 //Requerimiento 4.- Evaluar nuevamente la condicion del if, else, while, for y do while; Con respecto al parametro que reciben
 //Requerimiento 5.- Levantar una excepcion en el scanf cuando la captura no sea un numero
+//Requerimiento 6.- Ejecutar el for ,
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -256,8 +257,8 @@ namespace Semantica
                 float resultado = stack.Pop();
                 log.Write("= "+resultado);
                 log.WriteLine();
-                Console.Write(dominante);
-                Console.WriteLine(EvaluaNumero(resultado));
+                //Console.Write(dominante);
+                //Console.WriteLine(EvaluaNumero(resultado));
                 if(dominante < EvaluaNumero(resultado))
                 {
                     dominante = EvaluaNumero(resultado);
@@ -324,18 +325,24 @@ namespace Semantica
             match("(");
             Asignacion(evaluacion);
             //Requerimiento 4
+            //Requerimiento 6: a) Necesito guardar la posicion del archivo de texto 
             bool validarFor = Condicion();
-            match(";");
-            Incremento(evaluacion);
-            match(")");
-            if (getContenido() == "{")
-            {
-                BloqueInstrucciones(evaluacion);  
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
+            //b) Agregar un ciclo while depues de validar el For 
+            //While()
+            // {
+                match(";");
+                Incremento(evaluacion);
+                match(")");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(evaluacion);  
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+                //C) Regresar a la posicion de la lectura del archivo
+                //d) Sacar otro token
         }
 
         //Incremento -> Identificador ++ | --
@@ -613,6 +620,7 @@ namespace Semantica
                 {
                     log.Write(getContenido() + " " );
                     //Requerimiento 1
+                    log.Write(" ");
                     stack.Push(getValor(getContenido()));
                     match(Tipos.Identificador);
                 }
