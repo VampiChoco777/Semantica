@@ -1,5 +1,53 @@
-Archivo: prueba.cpp
-04/10/2022 08:49:54 a. m.
+;Archivo: prueba.cpp
+;Fecha: 26/10/2022 09:59:43 a. m.
 
-x = a  = 0
-8  10  1  1  Error de sintaxis, no se puede asignar <holi> en linea: 15
+i = 0  = 0
+i  1  
+j = 0  = 0
+j  1  
+x = x  1  + = 1
+
+k = 0  = 0
+k  1  
+c = 0  = 0
+c  1  
+y = y  2  + = 2
+c  1  
+y = y  2  + = 4
+k  1  
+c = 0  = 0
+c  1  
+y = y  2  + = 4
+j  1  
+x = x  1  + = 2
+
+k = 0  = 0
+k  1  
+c = 0  = 0
+c  1  
+y = y  2  + = 4
+i  1  
+j = 0  = 0
+j  1  
+x = x  1  + = 2
+
+k = 0  = 0
+k  1  
+c = 0  = 0
+c  1  
+y = y  2  + = 4
+ 
+Variables: 
+area Float 0
+radio Float 0
+pi Float 0
+resultado Float 0
+a Int 0
+d Int 0
+altura Int 0
+x Int 1
+y Int 2
+i Int 2
+j Int 2
+k Int 2
+c Int 2
