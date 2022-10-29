@@ -1,42 +1,9 @@
 ;Archivo: prueba.cpp
-;Fecha: 26/10/2022 09:59:43 a. m.
-
+;Fecha: 29/10/2022 05:34:40 p. m.
+1  2  
 i = 0  = 0
-i  1  
-j = 0  = 0
-j  1  
-x = x  1  + = 1
-
-k = 0  = 0
-k  1  
-c = 0  = 0
-c  1  
-y = y  2  + = 2
-c  1  
-y = y  2  + = 4
-k  1  
-c = 0  = 0
-c  1  
-y = y  2  + = 4
-j  1  
-x = x  1  + = 2
-
-k = 0  = 0
-k  1  
-c = 0  = 0
-c  1  
-y = y  2  + = 4
-i  1  
-j = 0  = 0
-j  1  
-x = x  1  + = 2
-
-k = 0  = 0
-k  1  
-c = 0  = 0
-c  1  
-y = y  2  + = 4
- 
+i  
+i = 1  2   
 Variables: 
 area Float 0
 radio Float 0
@@ -45,9 +12,10 @@ resultado Float 0
 a Int 0
 d Int 0
 altura Int 0
-x Int 1
-y Int 2
-i Int 2
-j Int 2
-k Int 2
-c Int 2
+x Float 0
+y Int 0
+i Char 0
+j Int 0
+l Int 0
+k Int 0
+p Int 0

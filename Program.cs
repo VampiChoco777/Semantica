@@ -13,8 +13,6 @@ namespace Semantica
                 Lenguaje a = new Lenguaje();
                 
                 a.Programa();
-
-
                 
                 /*a.match("#");
                 a.match("include");
@@ -29,6 +27,9 @@ namespace Semantica
                   //  a.NextToken();
                 //}
                 a.cerrar();
+                /*a = null;
+                System.GC.Collect();
+                GC.WaitForPendingFinalizers();*/
                 
             }
             catch (Exception e)
