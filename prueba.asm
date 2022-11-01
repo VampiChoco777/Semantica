@@ -1,46 +1,66 @@
 ;Archivo: prueba.cpp
-;Fecha: 29/10/2022 05:34:40 p. m.
-make COM
-include 'emu 8086.inc'
-ORG 100h
+;Fecha: 31/10/2022 07:13:14 p. m.
+#make_COM
+include 'emu8086.inc'
+ORG 1000h
+inicioWhile 0:
+MOV AX, 10
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JGE finWhile 0
+MOV AX, 0
+PUSH AX
+POP AX
+MOV x, AX
+MOV AX, 0
+PUSH AX
+POP AX
+MOV j, AX
+finWhile 0:
+MOV AX, 20
+PUSH AX
+MOV AX, 8
+PUSH AX
+POP BX
+POP AX
+SUB AX, BX
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+MUL BX
+PUSH AX
+MOV AX, 20
+PUSH AX
+MOV AX, 3
+PUSH AX
+POP BX
+POP AX
+SUB AX, BX
+PUSH AX
+POP BX
+POP AX
+DIV BX
+PUSH AX
+POP AX
+MOV x, AX
+RET
 ;Variables: 
-	area DW ?
-	radio DW ?
-	pi DW ?
-	resultado DW ?
+	area DD ?
+	radio DD ?
+	pi DD ?
+	resultado DD ?
 	a DW ?
 	d DW ?
 	altura DW ?
-	x DW ?
+	x DD ?
 	y DW ?
-	i DW ?
+	i DB ?
 	j DW ?
 	l DW ?
 	k DW ?
 	p DW ?
-MOV AX, 1
-PUSH AX
-MOV AX, 2
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JNE if1
-MOV AX, 0
-PUSH AX
-POP AX
-MOV i, AX
-POP AX
-PRINTN ""
-MOV AX, 1
-PUSH AX
-MOV AX, 2
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JNE 
-PRINTN "Holi crayoli"
-if1:
-RET
 DEFINE_SCAN_NUM

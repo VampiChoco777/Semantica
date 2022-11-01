@@ -130,9 +130,9 @@ namespace Semantica
         }
         public void cerrar()
         {
-            archivo.Close();
-            log.Close();
-            asm.Close();
+            //archivo.Close();
+            //log.Close();
+            //asm.Close();
         }       
 
         private void clasifica(int estado)

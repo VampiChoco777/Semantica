@@ -10,10 +10,9 @@ namespace Semantica
         {
             try
             {
-                Lenguaje a = new Lenguaje();
-                
-                a.Programa();
-                
+                instancia();
+                GC.Collect();
+                Console.WriteLine("\n.:Se libera el espacio en memoria:.");
                 /*a.match("#");
                 a.match("include");
                 a.match("<");
@@ -26,7 +25,7 @@ namespace Semantica
                 //{
                   //  a.NextToken();
                 //}
-                a.cerrar();
+                //a.cerrar();
                 /*a = null;
                 System.GC.Collect();
                 GC.WaitForPendingFinalizers();*/
@@ -36,7 +35,11 @@ namespace Semantica
             {
                 Console.WriteLine(e.Message);
             }
-
+        }
+        static void instancia()
+        {
+            Lenguaje a = new Lenguaje();
+            a.Programa();
         }
     }
 }
