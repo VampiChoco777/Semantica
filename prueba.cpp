@@ -10,17 +10,6 @@ int p;
 // Este programa calcula el volumen de un cilindro.
 void main()
 {
-  while(i < 10)
-  {
-    x = 0;
-    j = 0;
-    
-    /*while( j < 10)
-    {
-      p = 3;
-      j++
-    }*/
-    i++;
-  }
-     x = ((20-8)*2)/(20-3);
+  i = (char)(256);
+  printf(i);
 }

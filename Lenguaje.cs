@@ -69,18 +69,7 @@ namespace Semantica
             asm.WriteLine(";Variables: ");
             foreach (Variable v in variables)
             {
-                if(v.getTipo()== Variable.TipoDato.Char )
-                {
-                    asm.WriteLine("\t" + v.getNombre() + " DB ?");
-                }
-                else if(v.getTipo()== Variable.TipoDato.Int)
-                {
                     asm.WriteLine("\t" + v.getNombre() + " DW ?");
-                }
-                else
-                {
-                    asm.WriteLine("\t" + v.getNombre() + " DD ?");
-                }
             }
         }
         private bool existeVariable(string nombre)
@@ -150,14 +139,14 @@ namespace Semantica
         {
             asm.WriteLine("#make_COM#");
             asm.WriteLine("include 'emu8086.inc'");
-            asm.WriteLine("ORG 1000h");
+            asm.WriteLine("ORG 100h");
             Libreria();
             Variables();
-            //VariableAsm();
+            VariableAsm();
             Main();
             displayVariables();
+            asm.WriteLine("END");
             asm.WriteLine("RET");
-            VariableAsm();
             asm.WriteLine("DEFINE_SCAN_NUM");
 
         }
@@ -375,17 +364,18 @@ namespace Semantica
         //While -> while(Condicion) bloque de instrucciones | instruccion
         private void While(bool evaluacion, bool ejecutado)
         {
-            string inicioWhile = "inicioWhile " + cWHILE;
-            string finWhile = "finWhile " + cWHILE++;
-            if(!ejecutado)
-            {
-                asm.WriteLine(inicioWhile + ":");
-            }
+            string inicioWhile = "inicioWhile" + cWHILE;
+            string finWhile = "finWhile" + cWHILE++;
+    
             match("while");
             match("(");
             bool validarWhile = false;
             int linea_1 = getLinea();
             int cont_1 = getCont();
+            if(!ejecutado)
+            {
+                asm.WriteLine(inicioWhile + ":");
+            }
             do{
                 validarWhile = Condicion(finWhile,ejecutado);
 
@@ -413,6 +403,7 @@ namespace Semantica
                 }
                 if(!ejecutado)
                 {
+                    asm.WriteLine("JMP " + inicioWhile);
                     asm.WriteLine(finWhile + ":");
                     ejecutado = true;
                 }
@@ -422,8 +413,8 @@ namespace Semantica
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
         private void Do(bool evaluacion, bool ejecutado)
         {
-            string iniciarDoWhile = "iniciarDoWhile " + cDoWhile;
-            string finDoWhile = "finDoWhile " + cDoWhile++;
+            string iniciarDoWhile = "iniciarDoWhile" + cDoWhile;
+            string finDoWhile = "finDoWhile" + cDoWhile++;
             bool validarDo = true;
             match("do");
             int linea_2 = getLinea();
@@ -446,7 +437,7 @@ namespace Semantica
                 match("while");
                 match("(");
  
-                validarDo = Condicion(iniciarDoWhile,ejecutado) ;
+                validarDo = Condicion(finDoWhile,ejecutado) ;
 
                 match(")");
                 if(evaluacion && validarDo)
@@ -460,6 +451,7 @@ namespace Semantica
                 }
                 if(!ejecutado)
                 {
+                    asm.WriteLine("JMP " + iniciarDoWhile);
                     asm.WriteLine(finDoWhile + ":");
                     ejecutado = true;
                 }
@@ -473,10 +465,7 @@ namespace Semantica
             float guardar = 0;
             string etiquetaInicioFor = "inicioFor" + cFOR;
             string etiquetaFinFor = "finFor" + cFOR++;
-            if(!ejecutado)
-            {
-                asm.WriteLine(etiquetaInicioFor + ":");
-            }
+            
             bool validarFor;
             match("for");
             match("(");
@@ -487,10 +476,15 @@ namespace Semantica
 
             //a) Necesito guardar la posicion del archivo de texto 
             //Console.WriteLine("antes condicion "+getContenido());
+            if(!ejecutado)
+            {
+                asm.WriteLine(etiquetaInicioFor + ":");
+            }
             do
             {
+                
                 //Console.WriteLine("Evaluar condi  "+getContenido());
-                validarFor = Condicion("",ejecutado);
+                validarFor = Condicion(etiquetaFinFor,ejecutado);
                 if (!evaluacion)
                 {
                     validarFor = false;
@@ -527,6 +521,11 @@ namespace Semantica
                             if (EvaluaNumero(getValor(nombre) * guardar) <= getTipo(nombre))
                             {
                                 ModificaValor(nombre, getValor(nombre) * guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("MUL " + nombre + ", " + guardar);
+
+                                }
                             }
                             else
                             {
@@ -537,6 +536,11 @@ namespace Semantica
                             if (EvaluaNumero(getValor(nombre) / guardar) <= getTipo(nombre))
                             {
                                 ModificaValor(nombre, getValor(nombre) / guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("DIV " + nombre + ", " + guardar);
+
+                                }
                             }
                             else
                             {
@@ -547,6 +551,11 @@ namespace Semantica
                             if (EvaluaNumero(getValor(nombre) % guardar) <= getTipo(nombre))
                             {
                                 ModificaValor(nombre, getValor(nombre) % guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("MOD " + nombre + ", " + guardar);
+
+                                }
                             }
                             else
                             {
@@ -554,12 +563,59 @@ namespace Semantica
                             }
                             break;
                         case "++":
+                            if (EvaluaNumero(getValor(nombre) + guardar) <= getTipo(nombre))
+                            {
+                                ModificaValor(nombre, getValor(nombre) + guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("INC " + nombre );
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica, no podemos asignar un: < " + EvaluaNumero(getValor(nombre) + guardar) + " > a un: " + getTipo(nombre) + " > en linea " + linea, log);
+                            }
+                            break;
                         case "--":
+                            if (EvaluaNumero(getValor(nombre) + guardar) <= getTipo(nombre))
+                            {
+                                ModificaValor(nombre, getValor(nombre) + guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("DEC " + nombre );
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica, no podemos asignar un: < " + EvaluaNumero(getValor(nombre) + guardar) + " > a un: " + getTipo(nombre) + " > en linea " + linea, log);
+                            }
+                            break;
                         case "+=":
+                            if (EvaluaNumero(getValor(nombre) + guardar) <= getTipo(nombre))
+                            {
+                                ModificaValor(nombre, getValor(nombre) + guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("ADD " + nombre + ", " + guardar);
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica, no podemos asignar un: < " + EvaluaNumero(getValor(nombre) + guardar) + " > a un: " + getTipo(nombre) + " > en linea " + linea, log);
+                            }
+                            break;
                         case "-=":
                             if (EvaluaNumero(getValor(nombre) + guardar) <= getTipo(nombre))
                             {
                                 ModificaValor(nombre, getValor(nombre) + guardar);
+                                if(!ejecutado)
+                                {
+                                    asm.WriteLine("SUB " + nombre + ", " + guardar);
+
+                                }
                             }
                             else
                             {
@@ -576,6 +632,7 @@ namespace Semantica
                 }
                 if(!ejecutado)
                 {
+                    asm.WriteLine("JMP " + etiquetaInicioFor);
                     asm.WriteLine(etiquetaFinFor + ":");
                     ejecutado = true;
                 }
@@ -599,6 +656,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) + 1) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) + 1);
+                            if(!ejecutado)
+                                {
+                                    asm.WriteLine("INC " + variable);
+
+                                }
                         }
                         else
                         {
@@ -617,6 +679,12 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) + resultado) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) + resultado);
+                            if(!ejecutado)
+                            {
+                                asm.WriteLine("ADD " + variable + ", " + resultado);
+
+                            }
+                            
                         }
                         else
                         {
@@ -634,6 +702,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) - resultado) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) - resultado);
+                            if(!ejecutado)
+                            {
+                                    asm.WriteLine("SUB " + variable + ", " + resultado);
+
+                            }
                         }
                         else
                         {
@@ -651,6 +724,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) * resultado) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) * resultado);
+                            if(!ejecutado)
+                            {
+                                asm.WriteLine("MUL " + variable + ", " + resultado);
+
+                            }
                         }
                         else
                         {
@@ -668,6 +746,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) / resultado) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) / resultado);
+                            if(!ejecutado)
+                            {
+                                asm.WriteLine("DIV " + variable + ", " + resultado);
+
+                            }
                         }
                         else
                         {
@@ -685,6 +768,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) % resultado) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) % resultado);
+                            if(!ejecutado)
+                            {
+                                asm.WriteLine("MOD " + variable + ", " + resultado);
+
+                            }
                         }
                         else
                         {
@@ -700,6 +788,11 @@ namespace Semantica
                         if (EvaluaNumero(getValor(variable) - 1) <= getTipo(variable))
                         {
                             ModificaValor(variable, getValor(variable) - 1);
+                            if(!ejecutado)
+                            {
+                                asm.WriteLine("DEC " + variable);
+
+                            }
                         }
                         else
                         {
@@ -1138,6 +1231,11 @@ namespace Semantica
             else if (getClasificacion() == Tipos.Identificador)
             {
 
+                if(!ejecutado)
+                {
+                    asm.WriteLine("MOV AX, " + getContenido());
+                    asm.WriteLine("PUSH AX");
+                }
                 if (existeVariable(getContenido()))
                 {
                     log.Write(getContenido() + " ");
@@ -1183,7 +1281,7 @@ namespace Semantica
                 if (huboCasteo)
                 {
                     dominante = casteo;
-
+                    
                     float valores = stack.Pop();
                     if(!ejecutado)
                     {
@@ -1195,6 +1293,11 @@ namespace Semantica
                         valores = MathF.Truncate(valores);
                     }
                     valores = Convertir(valores, dominante);
+                    if(!ejecutado)
+                    {
+                        asm.WriteLine("MOV AX, " + valores);
+                        asm.WriteLine("PUSH AX");
+                    }
                     stack.Push(valores);
 
                 }

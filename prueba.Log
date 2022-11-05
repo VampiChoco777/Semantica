@@ -1,63 +1,8 @@
 ;Archivo: prueba.cpp
-;Fecha: 31/10/2022 07:13:14 p. m.
-i  10  
-x = 0  = 0
+;Fecha: 04/11/2022 09:18:05 a. m.
 
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = i  10  
-x = 0  = 0
-
-j = 0  = 0
-
-i = 
-x = 20  8  - 2  * 20  3  - / = 1.4117647
- 
+i = 256  = 0
+i   
 Variables: 
 area Float 0
 radio Float 0
@@ -66,9 +11,9 @@ resultado Float 0
 a Int 0
 d Int 0
 altura Int 0
-x Float 1.4117647
+x Float 0
 y Int 0
-i Char 10
+i Char 0
 j Int 0
 l Int 0
 k Int 0

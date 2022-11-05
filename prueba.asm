@@ -1,66 +1,33 @@
 ;Archivo: prueba.cpp
-;Fecha: 31/10/2022 07:13:14 p. m.
-#make_COM
+;Fecha: 04/11/2022 09:18:05 a. m.
+#make_COM#
 include 'emu8086.inc'
-ORG 1000h
-inicioWhile 0:
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JGE finWhile 0
-MOV AX, 0
-PUSH AX
-POP AX
-MOV x, AX
-MOV AX, 0
-PUSH AX
-POP AX
-MOV j, AX
-finWhile 0:
-MOV AX, 20
-PUSH AX
-MOV AX, 8
-PUSH AX
-POP BX
-POP AX
-SUB AX, BX
-PUSH AX
-MOV AX, 2
-PUSH AX
-POP BX
-POP AX
-MUL BX
-PUSH AX
-MOV AX, 20
-PUSH AX
-MOV AX, 3
-PUSH AX
-POP BX
-POP AX
-SUB AX, BX
-PUSH AX
-POP BX
-POP AX
-DIV BX
-PUSH AX
-POP AX
-MOV x, AX
-RET
+ORG 100h
 ;Variables: 
-	area DD ?
-	radio DD ?
-	pi DD ?
-	resultado DD ?
+	area DW ?
+	radio DW ?
+	pi DW ?
+	resultado DW ?
 	a DW ?
 	d DW ?
 	altura DW ?
-	x DD ?
+	x DW ?
 	y DW ?
-	i DB ?
+	i DW ?
 	j DW ?
 	l DW ?
 	k DW ?
 	p DW ?
+MOV AX, 256
+PUSH AX
+POP AX
+MOV AX, 0
+PUSH AX
+POP AX
+MOV i, AX
+MOV AX, i
+PUSH AX
+POP AX
+END
+RET
 DEFINE_SCAN_NUM
